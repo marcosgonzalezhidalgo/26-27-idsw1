@@ -1,59 +1,43 @@
+[🏠 README](../README.md) · [→ Siguiente: Farmear aura](02_farmearAura.md)
+
+---
+
 # Reto 001 — Modelado: Una sombra
 
 ## 1. Modelo de dominio
 
-Una sombra aparece cuando una fuente de luz ilumina un objeto y este bloquea parte de esa luz, proyectando una región oscura sobre una superficie.
+Una sombra aparece cuando algo bloquea la luz antes de que llegue a alguna superficie. Para que haya sombra hacen falta tres cosas: una fuente de luz, algo que la tape y una superficie donde se vea el resultado.
 
-El modelo identifica cuatro conceptos principales:
+El modelo identifica cuatro conceptos:
 
 - **Fuente de luz**
 - **Objeto**
 - **Sombra**
 - **Superficie**
 
-El diagrama de dominio es:
-
-```plantuml
-@startuml sombra
-left to right direction
-skinparam classAttributeIconSize 0
-skinparam classFontStyle bold
-
-class "Fuente de luz" as FuenteLuz
-class Objeto
-class Sombra {
-    posición
-    tamaño
-    intensidad
-}
-class Superficie
-
-FuenteLuz "1"    --> "1..*" Objeto    : ilumina
-Objeto    "1"    --> "1..*" Sombra    : proyecta
-Sombra    "1..*" --> "1"   Superficie : aparece sobre
-
-@enduml
-```
+![Diagrama Sombra](./../images/01_diagramaSombra.png)
 
 ## 2. Glosario
 
 | Término | Definición |
 |---|---|
-| **Fuente de luz** | Elemento que emite luz (sol, lámpara, vela, etc.). |
-| **Objeto** | Elemento opaco o semiopaco que intercepta la luz. |
-| **Sombra** | Región donde la luz queda parcial o totalmente bloqueada. Tiene posición, tamaño e intensidad. |
-| **Superficie** | Plano o cuerpo sobre el que se proyecta la sombra. |
+| **Fuente de luz** | Lo que emite luz: el sol, una lámpara, una vela… |
+| **Objeto** | Cualquier cosa que bloquea el paso de la luz. |
+| **Sombra** | La zona oscura que aparece cuando la luz queda bloqueada. |
+| **Superficie** | El sitio donde se ve la sombra: el suelo, una pared… |
 
 ## 3. Supuestos
 
-1. Una sombra es producida por un objeto que bloquea una fuente de luz.
-2. Toda sombra se proyecta necesariamente sobre una superficie.
-3. Un objeto puede producir varias sombras si existen varias fuentes de luz.
-4. Una fuente de luz puede iluminar varios objetos simultáneamente.
-5. No se modelan fenómenos físicos complejos como refracción, difracción o penumbra.
+1. Para que exista sombra hacen falta los tres elementos: luz, objeto y superficie.
+2. Un mismo objeto puede producir varias sombras si hay varias fuentes de luz.
+3. No se tienen en cuenta efectos raros de la luz como la penumbra o la refracción.
 
 ## 4. Decisiones de modelado
 
-**Sombra como clase independiente.** La decisión más discutible es tratar `Sombra` como clase conceptual y no como un atributo de `Objeto`. Se justifica porque la sombra tiene propiedades propias (posición, tamaño, intensidad) y porque el enunciado pide modelar precisamente este concepto, lo que le otorga protagonismo en el dominio.
+**¿Por qué `Sombra` es un concepto propio y no una propiedad del objeto?** Podría pensarse que la sombra es simplemente algo que tiene o no tiene un objeto. Pero eso no es correcto: la sombra no pertenece al objeto, sino que es el resultado de la relación entre los tres elementos. Por eso tiene sentido tratarla como un concepto independiente en el diagrama.
 
-**Multiplicidades 1..*.** Una fuente de luz que no ilumina ningún objeto no produce sombras y queda fuera del escenario de interés. Análogamente, si un objeto no proyecta ninguna sombra no es relevante al dominio modelado.
+**¿Por qué no hay flecha directa entre `Fuente de luz` y `Sombra`?** Aunque intuitivamente la luz "causa" la sombra, en realidad no puede haberla sin un objeto que la tape. El objeto es el paso obligatorio en esa cadena. Por eso el diagrama va de fuente de luz → objeto → sombra, que refleja mejor lo que realmente ocurre.
+
+---
+
+[🏠 README](../README.md) · [→ Siguiente: Farmear aura](02_farmearAura.md)

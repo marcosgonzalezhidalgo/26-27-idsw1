@@ -1,8 +1,12 @@
+[← Anterior: Farmear aura](02_farmearAura.md) · [🏠 README](../README.md)
+
+---
+
 # Reto 001 — Modelado: El concepto de simpatía
 
 ## 1. Modelo de dominio
 
-La simpatía se entiende como una percepción favorable que una persona tiene hacia otra. No se considera que alguien sea simpático de forma absoluta: la simpatía es relacional y puede variar según quién la percibe y el contexto en que se produce.
+Decir que alguien es simpático no es algo absoluto: depende de quién lo diga. Por eso, en vez de poner "simpático" como una etiqueta fija, se modela la simpatía como algo que una persona siente hacia otra, y que puede cambiar con el tiempo según cómo interactúen.
 
 Los conceptos principales son:
 
@@ -12,54 +16,36 @@ Los conceptos principales son:
 - **Comportamiento**
 - **Contexto**
 
-El modelo es:
+![Diagrama Simpatía](./../images/03_diagramaSimpatia.png)
 
-```plantuml
-@startuml simpatia
-left to right direction
-skinparam classAttributeIconSize 0
-skinparam classFontStyle bold
-
-class Persona
-class Simpatía {
-    grado
-}
-class Interacción
-class Comportamiento
-class Contexto
-
-Persona      "1"    -->  "0..*" Simpatía       : experimenta
-Simpatía     "0..*" -->  "1"    Persona        : hacia
-Interacción  "1"    -->  "0..*" Comportamiento : incluye
-Interacción  "1"    -->  "1"    Contexto       : ocurre en
-Persona      "1..*" --   "0..*" Interacción    : participa en
-Interacción  "0..*" ..>  "0..*" Simpatía       : puede influir en
-
-@enduml
-```
+> **Nota:** En el diagrama, la simpatía va de una persona hacia otra: A siente simpatía hacia B. Esto permite que A encuentre a B simpático aunque B no sienta lo mismo hacia A.
 
 ## 2. Glosario
 
 | Término | Definición |
 |---|---|
-| **Persona** | Individuo que participa en relaciones sociales. |
-| **Simpatía** | Percepción favorable que una persona tiene hacia otra; tiene un grado y puede cambiar. |
-| **Interacción** | Encuentro o relación entre dos o más personas. |
-| **Comportamiento** | Forma en que una persona actúa durante una interacción. |
-| **Contexto** | Circunstancias externas (lugar, momento, cultura) en las que sucede una interacción. |
+| **Persona** | Cualquier individuo que puede relacionarse con otros. |
+| **Simpatía** | La sensación positiva que una persona tiene hacia otra. Puede ser mayor o menor, y cambia con el tiempo. |
+| **Interacción** | Un encuentro o conversación entre personas. |
+| **Comportamiento** | Cómo actúa una persona durante una interacción. |
+| **Contexto** | Las circunstancias que rodean una interacción: el lugar, el momento, la situación… |
 
 ## 3. Supuestos
 
-1. La simpatía es relacional: es siempre de una persona *hacia* otra, no una propiedad absoluta.
-2. La simpatía puede ser asimétrica: A puede ser simpático para B sin que B lo sea para A.
-3. La simpatía puede cambiar con el tiempo como consecuencia de nuevas interacciones.
-4. Las interacciones y los comportamientos que ocurren en ellas pueden influir en la simpatía percibida.
-5. No se establece una fórmula objetiva para determinar cuándo alguien es "simpático".
+1. La simpatía no es una propiedad de la persona, sino de la relación entre dos personas.
+2. Que A encuentre simpático a B no significa que B encuentre simpático a A.
+3. La simpatía puede cambiar: una mala interacción puede reducirla, y una buena puede aumentarla.
+4. Las interacciones influyen en la simpatía, pero no la determinan de forma fija.
+5. No existe un punto exacto a partir del cual alguien es "simpático": cada persona tiene su propio criterio.
 
 ## 4. Decisiones de modelado
 
-**Simpatía como clase, no como atributo.** Se ha optado por representar `Simpatía` como clase independiente en lugar de como un atributo booleano o numérico de `Persona`. El motivo es que la simpatía no pertenece a una persona sino a la *relación* entre dos personas. Modelarla como clase permite que tenga su propio atributo `grado` y que participe en relaciones con otros conceptos (como las interacciones).
+**¿Por qué `Simpatía` es un concepto propio y no una etiqueta de `Persona`?** Podría haberse dicho simplemente "esta persona es simpática: sí/no". Pero eso no refleja la realidad: que tú me caigas bien a mí no significa que le caigas bien a todos. La simpatía existe entre dos personas, no dentro de una sola. Por eso se modela como algo que conecta a una persona con otra.
 
-**Relación Interacción → Simpatía.** En la versión anterior, los dos subgrafos del modelo (el de `Simpatía` y el de `Interacción`) estaban desconectados entre sí. Se ha añadido una dependencia punteada `Interacción ..> Simpatía : puede influir en` para capturar el hecho central del dominio: las interacciones son el mecanismo a través del cual se genera o modifica la simpatía. Se usa una relación de influencia (punteada) y no una asociación fuerte porque el efecto no es determinista.
+**¿Por qué hay una flecha punteada entre `Interacción` y `Simpatía`?** Porque las interacciones influyen en la simpatía, pero no siempre del mismo modo ni para todos. Es una influencia posible, no una consecuencia garantizada. Sin esta conexión, el diagrama quedaría partido en dos partes sin relación entre sí.
 
-**No existe clase `Simpático`.** Se considera que "simpático" es un adjetivo derivado de percibir un `grado` alto de `Simpatía`; no es un tipo de persona sino un estado relacional. Crear una clase `Simpático` introduciría una categoría absoluta que el modelo rechaza explícitamente.
+**¿Por qué no existe un concepto `Simpático`?** Porque "simpático" no es un tipo de persona, es una opinión que alguien tiene sobre otra. Crear un concepto así sería como decir que hay personas que son simpáticas de forma universal, y eso contradice todo el modelo.
+
+---
+
+[← Anterior: Farmear aura](02_farmearAura.md) · [🏠 README](../README.md)
