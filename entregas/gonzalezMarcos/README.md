@@ -14,22 +14,3 @@ Este repositorio contiene la propuesta de modelo de dominio para tres escenarios
 | 3 | [El concepto de simpatía](docs/03_simpatia.md) | Modelado de la simpatía como relación entre personas, modulada por interacciones y contexto. |
 
 ---
-
-## Estructura del proyecto
-
-```
-gonzalezMarcos/
-├── README.md
-├── docs/
-│   ├── 01_sombra.md
-│   ├── 02_farmearAura.md
-│   └── 03_simpatia.md
-├── modelosUML/
-│   ├── 01_diagramaSombra.puml
-│   ├── 02_diagramaFarmearAura.puml
-│   └── 03_diagramaSimpatia.puml
-└── images/
-    ├── 01_diagramaSombra.png
-    ├── 02_diagramaFarmearAura.png
-    └── 03_diagramaSimpatia.png
-```

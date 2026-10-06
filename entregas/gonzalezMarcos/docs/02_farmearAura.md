@@ -4,45 +4,66 @@
 
 # Reto 001 — Modelado: Farmear aura
 
-## 1. Modelo de dominio
+## 1 · Estudio del dominio
 
-"Farmear aura" significa hacer cosas que hacen que los demás te vean mejor. Puede ser algo consciente (quedar bien adrede) o simplemente el efecto de cómo actúas en cada situación.
+### Diagrama de clases base
 
-Los conceptos principales son:
+Se identifican los conceptos clave del dominio "farmear aura" tal y como los entendería un adolescente:
 
-- **Persona**
-- **Aura**
-- **Acción**
-- **Situación**
+![Diagrama de clases base](./../images/02_farmearAura_basico.png)
 
-![Diagrama Farmear Aura](./../images/02_diagramaFarmearAura.png)
+### Glosario inicial
 
-> **Nota:** En el diagrama, la flecha `Acción → Persona : es percibida por` indica que quien ve la acción es una persona distinta de quien la realiza. No hace falta crear un concepto separado para "observador" porque un observador no deja de ser una persona.
-
-## 2. Glosario
-
-| Término | Definición |
+| Término | Qué es |
 |---|---|
-| **Persona** | Cualquier individuo; puede hacer cosas o verlas hacer. |
-| **Aura** | La imagen o reputación que los demás tienen de una persona. |
-| **Farmear aura** | Hacer cosas para que tu aura suba. |
-| **Acción** | Algo concreto que hace una persona y que otros pueden ver. |
-| **Situación** | El contexto en el que ocurre una acción (dónde, cuándo, con quién). |
+| **Chaval** | Un adolescente cualquiera, el que hace cosas o el que las ve hacer. |
+| **Aura** | Lo que los demás piensan de ti. Tu reputación, el rollo que transmites. |
+| **Movida** | Algo concreto que hace un chaval: un comentario, un gesto, algo que se marca. |
+| **Momento** | Dónde y cuándo pasa la movida: en clase, en el recreo, en una fiesta... |
+| **Gente** | Los que están ahí mirando y juzgando lo que haces. El público. |
 
-## 3. Supuestos
+### Supuestos
 
-1. El aura no es algo físico; es lo que otros piensan de ti.
-2. Una misma acción puede subir el aura para unos y bajarla para otros.
-3. El contexto importa: la misma acción no tiene el mismo efecto en todos los sitios.
-4. No existe una fórmula para calcular el aura; es algo subjetivo.
+1. El aura no es un número fijo; es algo que la gente siente sobre ti.
+2. Una misma movida puede molarte a unos y parecerles cringe a otros.
+3. El momento importa: lo que mola en una fiesta puede ser ridículo en clase.
+4. No hay una fórmula mágica para calcular el aura; es subjetivo.
 
-## 4. Decisiones de modelado
+---
 
-**¿Por qué `Aura` es un concepto propio y no un simple número dentro de `Persona`?** Se podría haber puesto el aura como un valor dentro de la persona (como si fuera una puntuación). Pero el aura no es algo que tenga la persona por sí sola: depende de lo que hacen otros al percibirla. Tratarla como concepto independiente refleja mejor esa idea.
+## 2 · Elaboración y estructuración
 
-**¿Por qué no hay un concepto `Observador`?** Un observador es simplemente otra persona que ve lo que haces. Añadir una clase separada para eso complicaría el diagrama sin aportar nada nuevo.
+### Diagrama de clases con relaciones
 
-**¿Por qué `Situación` es un concepto propio y no un dato de la acción?** Porque la situación es algo externo que puede afectar a varias acciones a la vez. No es algo que "tenga" la acción, sino el escenario en el que ocurre.
+Se conectan los conceptos usando verbos que diría un adolescente (cliente):
+
+![Diagrama de clases con relaciones](./../images/02_farmearAura_clases.png)
+
+| Relación | Qué significa |
+|---|---|
+| Chaval — Aura : **tiene** | Cada chaval tiene su propia aura |
+| Chaval — Movida : **se marca** | Un chaval se marca una movida (hace algo) |
+| Movida — Momento : **pasa en** | Cada movida pasa en un momento concreto |
+| Gente — Movida : **mira** | La gente que está ahí mira lo que haces |
+| Movida — Aura : **sube o baja** | Según la movida, tu aura sube o baja |
+
+### Diagrama de objetos
+
+Un ejemplo concreto: *"Pepe suelta un chiste en el recreo, los colegas lo miran y su aura sube"*
+
+![Diagrama de objetos](./../images/02_farmearAura_objetos.png)
+
+### Glosario expandido
+
+| Término | Qué es |
+|---|---|
+| **Chaval** | Un adolescente cualquiera, el que hace cosas o el que las ve hacer. |
+| **Aura** | Lo que los demás piensan de ti. Tu reputación, el rollo que transmites. No es algo tuyo solo: depende de lo que piense la gente. |
+| **Movida** | Algo concreto que hace un chaval: un comentario, un gesto, algo que se marca. Es lo que la gente ve y juzga. |
+| **Momento** | Dónde y cuándo pasa la movida: en clase, en el recreo, en una fiesta... El contexto que hace que algo mole o sea cringe. |
+| **Gente** | Los que están ahí mirando y juzgando lo que haces. El público. No tienen por qué ser desconocidos; son otros chavales. |
+| **se marca** | Cuando un chaval hace algo, "se marca una movida". |
+| **sube o baja** | El efecto que tiene una movida en tu aura. Si la gente flipa, sube. Si les parece cringe, baja. |
 
 ---
 
