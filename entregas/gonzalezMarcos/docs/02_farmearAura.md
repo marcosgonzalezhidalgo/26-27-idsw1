@@ -158,4 +158,23 @@ Para mantener la consistencia. El mismo escenario ("Pepe suelta un chiste en el 
 
 ---
 
+## 5 · Refinamiento UML Avanzado
+
+Para aportar mayor riqueza semántica (como se recomienda en la teoría de modelado avanzado), refinamos el diagrama de clases para distinguir el tipo de relaciones (asociación, agregación y composición) y extraer posibles valores a enumerados.
+
+![Diagrama de clases extendido](./../images/02_farmearAura_extendido.png)
+
+### Mejoras introducidas:
+
+1. **Composición (`*--`)**: Un `Chaval` está compuesto indisolublemente por su `Aura`. Si el chaval desaparece, su aura (en este contexto) también.
+2. **Agregación (`o--`)**:
+   - `Gente` es una agregación de `Chaval` (el público son otros chavales).
+   - Un `Momento` engloba o agrupa varias `Movida` (en un mismo recreo pasan muchas cosas).
+3. **Enumerados (`enum`)**: 
+   - Se definen explícitamente los estados de `TendenciaAura` (*PorLasNubes*, *Subiendo*, *Normal*, *Bajando*, *PorLosSuelos*) basados en el diagrama de estados previo.
+   - Se definen las reacciones en `ReaccionGente` (*Flipa*, *NiFuNiFa*, *Cringe*).
+4. **Navegabilidad (`-->`)**: Queda claro que la `Gente` observa la `Movida`, y es la `Movida` la que altera el `Aura` (flujo de impacto unidireccional).
+
+---
+
 [← Anterior: Una sombra](01_sombra.md) · [🏠 README](../README.md) · [→ Siguiente: El concepto de simpatía](03_simpatia.md)
